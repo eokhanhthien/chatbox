@@ -863,6 +863,7 @@
             { text: "Đổi thẻ trên Ipay", value: "doiThe", keywords: ["doi the", "thay the", "cap lai the", "change card"] },
             { text: "Giao dịch an toàn", value: "giaodichAnToan", keywords: ["an toan", "bao mat", "luu y", "security", "lua dao"] },
             { text: "Gặp chuyên viên tư vấn", value: "chuyenVien", keywords: ["chuyen vien", "ho tro", "tu van", "lien he", "support", "hotline"] }
+            ,{ text: "Chỉ đường", value: "chiDuong", keywords: ["chi duong", "chỉ đường", "duong", "map", "atm", "chỉ đường đến atm"] }
         ];
 
         // FAQ - Câu hỏi thường gặp
@@ -899,6 +900,8 @@
             "hotline": "Hotline VietinBank: 1900 558 868. Quý khách cũng có thể chọn 'Gặp chuyên viên tư vấn' để nhận thông tin liên hệ chi tiết ạ.",
             "số điện thoại": "Quý khách có thể gọi Hotline 1900 558 868 hoặc chọn 'Gặp chuyên viên tư vấn' để được hỗ trợ trực tiếp ạ.",
             "liên hệ": "Quý khách muốn liên hệ chuyên viên tư vấn phải không ạ? Vui lòng chọn 'Gặp chuyên viên tư vấn' từ menu nhé.",
+            "chỉ đường": "Quý khách có thể xem bản đồ và chỉ đường tới ATM tại: <a href='https://eokhanhthien.github.io/atm-location/' target='_blank'>Mở bản đồ chỉ đường</a>",
+            "chi duong": "Quý khách có thể xem bản đồ và chỉ đường tới ATM tại: <a href='https://eokhanhthien.github.io/atm-location/' target='_blank'>Mở bản đồ chỉ đường</a>",
             
             // An toàn
             "có an toàn không": "VietinBank luôn đảm bảo an toàn tuyệt đối cho khách hàng. Quý khách vui lòng chọn 'Hướng dẫn giao dịch an toàn' để xem các lưu ý bảo mật ạ.",
@@ -1008,7 +1011,8 @@
                 { text: '4. Đăng ký sinh trắc học', value: 'sinhTracHoc' },
                 { text: '5. Đổi thẻ trên Ipay', value: 'doiThe' },
                 { text: '6. Hướng dẫn giao dịch an toàn', value: 'giaodichAnToan' },
-                { text: '7. Gặp chuyên viên tư vấn', value: 'chuyenVien' }
+                    { text: '7. Gặp chuyên viên tư vấn', value: 'chuyenVien' },
+                    { text: '8. Chỉ đường', value: 'chiDuong' }
             ];
             addButtonOptions(menuOptions);
         }
@@ -1068,7 +1072,8 @@
                 'sinhTracHoc': '4. Đăng ký sinh trắc học',
                 'doiThe': '5. Đổi thẻ trên Ipay',
                 'giaodichAnToan': '6. Hướng dẫn giao dịch an toàn',
-                'chuyenVien': '7. Gặp chuyên viên tư vấn'
+                'chuyenVien': '7. Gặp chuyên viên tư vấn',
+                'chiDuong': '8. Chỉ đường'
             };
 
             if (currentState === 'waiting_feedback' || value === 'success' || value === 'failed' || value === 'menu' || value === 'end') {
@@ -1150,6 +1155,10 @@
 
             if (choice === 'chuyenVien') {
                 showContactInfo();
+                return;
+            }
+            if (choice === 'chiDuong') {
+                showDirectionsLink();
                 return;
             }
 
@@ -1357,6 +1366,15 @@
                 const videoMsg = `<a href="${videoLink}" target="_blank" class="video-link">Xem video hướng dẫn</a>`;
                 addBotMessage(videoMsg);
             }
+        }
+
+        // Hiển thị link chỉ đường (mở app bản đồ ATM)
+        function showDirectionsLink() {
+            const link = 'https://eokhanhthien.github.io/atm-location/';
+            const msg = `<a href="${link}" target="_blank" class="video-link" style="background:#007bff">Mở bản đồ chỉ đường tới ATM</a>`;
+            addBotMessage(msg);
+            // Ask for feedback after showing the directions
+            askForFeedback();
         }
 
         // Hỏi phản hồi
