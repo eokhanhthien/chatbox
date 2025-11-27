@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trợ lý hướng dẫn giải đáp thắc mắc khách hàng VietinBank</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chatbot-container {
+            width: 90%;
+            max-width: 800px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background: rgb(126, 211, 247);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 3px solid rgb(0, 89, 147);
+        }
+
+        .chatbot-header img {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .chatbot-header h1 {
+            color: rgb(0, 89, 147);
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            align-items: flex-start;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 75%;
+            padding: 15px 18px;
+            border-radius: 18px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .message.bot .message-content {
+            background: rgb(126, 211, 247);
+            color: rgb(0, 89, 147);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-content {
+            background: rgb(0, 89, 147);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-content strong {
+            font-weight: 600;
+        }
+
+        .message-content ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .message-content li {
+            margin: 5px 0;
+        }
+
+        /* YouTube Video Link Button */
+        .message-content .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 12px 20px;
+            background: #FF0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .message-content .video-link:hover {
+            background: #CC0000;
+            box-shadow: 0 6px 16px rgba(255, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .message-content .video-link::before {
+            content: '';
+            width: 28px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyOCAyMCI+PHBhdGggZD0iTTI3LjkgMy4zcy0uMy0xLjktMS4xLTIuN2MtMS4xLTEuMi0yLjMtMS4yLTIuOC0xLjNDMTkuOSAwIDE0IDAgMTQgMHMtNS45IDAtOS45LjNjLS42LjEtMS44LjEtMi44IDEuMy0uOS44LTEuMSAyLjctMS4xIDIuN1MwIDUuNCAwIDcuNHYxLjljMCAyIC4zIDQuMS4zIDYuMSAwIDAgLjMgMS45IDEuMSAyLjdjMS4xIDEuMiAyLjUgMS4yIDMuMSAxLjNDNi43IDE5LjYgMTQgMTkuNyAxNCAxOS43czUuOSAwIDkuOS0uM2MuNi0uMSAxLjgtLjEgMi44LTEuMy45LS44IDEuMS0yLjcgMS4xLTIuN3MuMy0yIC4zLTQuMVY3LjRjMC0yLS4zLTQuMS0uMy00LjF6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTExIDEzLjdWNS4zbDcuOSA0LjJ6IiBmaWxsPSIjZmYwMDAwIi8+PC9zdmc+');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .button-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .option-button {
+            padding: 12px 20px;
+            background: rgb(0, 89, 147);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            flex: 1 1 calc(50% - 5px);
+            min-width: 200px;
+        }
+
+        .option-button.secondary {
+            background: rgb(215, 18, 73);
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            background: white;
+            border-top: 2px solid #e0e0e0;
+            position: relative;
+        }
+
+        .suggestions-dropdown {
+            position: absolute;
+            bottom: 100%;
+            left: 20px;
+            right: 20px;
+            background: white;
+            border: 2px solid rgb(126, 211, 247);
+            border-radius: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 -4px 12px rgba(0, 89, 147, 0.2);
+            display: none;
+            z-index: 1000;
+        }
+
+        .suggestions-dropdown.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 12px 18px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            color: rgb(0, 89, 147);
+            transition: background 0.2s ease;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: rgb(126, 211, 247);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid rgb(126, 211, 247);
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: rgb(0, 89, 147);
+        }
+
+        .send-button {
+            padding: 12px 25px;
+            background: rgb(0, 89, 147);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 15px;
+            background: rgb(126, 211, 247);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 70px;
+        }
+
+        .typing-indicator.show {
+            display: block;
+        }
+
+        .typing-indicator span {
+            height: 10px;
+            width: 10px;
+            background: rgb(0, 89, 147);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .step-guide {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 8px 0;
+            border-left: 4px solid rgb(0, 89, 147);
+        }
+
+        .step-guide strong {
+            color: rgb(215, 18, 73);
+        }
+
+        /* Slides Viewer - Tối giản chỉ có slide */
+        .slides-viewer {
+            position: relative;
+            margin: 15px 0;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            max-width: 100%;
+        }
+
+        .fullscreen-icon-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(215, 18, 73, 0.9);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(215, 18, 73, 0.4);
+        }
+
+        .fullscreen-icon-btn:hover {
+            background: rgb(180, 15, 60);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(215, 18, 73, 0.6);
+        }
+
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f8f8f8;
+        }
+
+        .slides-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .slide-counter {
+            text-align: center;
+            margin-top: 10px;
+            color: rgb(0, 89, 147);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Swiper Navigation Buttons */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white !important;
+            background: rgb(0, 89, 147);
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 89, 147, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgb(215, 18, 73);
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(215, 18, 73, 0.5);
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 22px !important;
+            font-weight: bold;
+        }
+
+        /* Swiper Pagination */
+        .swiper-pagination {
+            bottom: 15px !important;
+        }
+
+        .swiper-pagination-bullet {
+            background: rgb(0, 89, 147) !important;
+            width: 10px !important;
+            height: 10px !important;
+            opacity: 0.5 !important;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: rgb(215, 18, 73) !important;
+            opacity: 1 !important;
+            transform: scale(1.4);
+        }
+
+        /* Fullscreen Modal */
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 10000;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .fullscreen-modal.show {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fullscreen-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgb(215, 18, 73);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: 700;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(215, 18, 73, 0.5);
+        }
+
+        .fullscreen-close:hover {
+            background: rgb(180, 15, 60);
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 6px 20px rgba(215, 18, 73, 0.7);
+        }
+
+        .fullscreen-slides {
+            width: 95%;
+            max-width: 1600px;
+            height: 90vh;
+            position: relative;
+        }
+
+        .fullscreen-slides .swiper-container {
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .fullscreen-slides iframe {
+            pointer-events: auto !important;
+            width: 100%;
+            height: 100%;
+        }
+
+        .fullscreen-slides .swiper-button-next,
+        .fullscreen-slides .swiper-button-prev {
+            width: 65px !important;
+            height: 65px !important;
+        }
+
+        .fullscreen-slides .swiper-button-next:after,
+        .fullscreen-slides .swiper-button-prev:after {
+            font-size: 30px !important;
+        }
+
+        .fullscreen-slides .swiper-pagination-bullet {
+            width: 12px !important;
+            height: 12px !important;
+        }
+
+        .fullscreen-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 89, 147, 0.9);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            z-index: 10001;
+            backdrop-filter: blur(10px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgb(126, 211, 247);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(0, 89, 147);
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .chatbot-container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+
+            .chatbot-header {
+                padding: 15px 10px;
+            }
+
+            .chatbot-header img {
+                max-width: 120px;
+            }
+
+            .chatbot-header h1 {
+                font-size: 14px;
+            }
+
+            .message-content {
+                max-width: 85%;
+                font-size: 13px;
+                padding: 12px 15px;
+            }
+
+            .message-content .video-link {
+                font-size: 13px;
+                padding: 10px 16px;
+                gap: 8px;
+            }
+
+            .message-content .video-link::before {
+                width: 24px;
+                height: 18px;
+            }
+
+            .option-button {
+                flex: 1 1 100%;
+                min-width: 100%;
+                font-size: 13px;
+                padding: 10px 15px;
+            }
+
+            .slides-viewer {
+                padding: 8px;
+            }
+
+            .slides-container {
+                height: 400px;
+            }
+
+            .fullscreen-icon-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+                top: 12px;
+                right: 12px;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 42px !important;
+                height: 42px !important;
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 18px !important;
+            }
+
+            .slide-counter {
+                font-size: 13px;
+            }
+
+            .step-guide {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .chat-input {
+                font-size: 13px;
+                padding: 10px 15px;
+            }
+
+            .send-button {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+
+            .suggestion-item {
+                font-size: 13px;
+                padding: 10px 15px;
+            }
+
+            .fullscreen-modal {
+                padding: 10px;
+            }
+
+            .fullscreen-close {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .fullscreen-info {
+                top: 15px;
+                left: 15px;
+                font-size: 13px;
+                padding: 8px 14px;
+            }
+
+            .fullscreen-slides {
+                width: 100%;
+                height: 85vh;
+            }
+
+            .fullscreen-slides .swiper-button-next,
+            .fullscreen-slides .swiper-button-prev {
+                width: 50px !important;
+                height: 50px !important;
+            }
+
+            .fullscreen-slides .swiper-button-next:after,
+            .fullscreen-slides .swiper-button-prev:after {
+                font-size: 22px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-header img {
+                max-width: 90px;
+            }
+
+            .chatbot-header h1 {
+                font-size: 12px;
+            }
+
+            .message-content {
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+
+            .message-content .video-link {
+                font-size: 12px;
+                padding: 9px 14px;
+                gap: 6px;
+            }
+
+            .message-content .video-link::before {
+                width: 22px;
+                height: 16px;
+            }
+
+            .option-button {
+                font-size: 12px;
+                padding: 9px 12px;
+            }
+
+            .slides-container {
+                height: 320px;
+            }
+
+            .fullscreen-icon-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .step-guide {
+                font-size: 11px;
+            }
+
+            .fullscreen-slides {
+                height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <img src="https://github.com/chatbotlinhchi/chatbot2/blob/main/Logo.png?raw=true" alt="VietinBank Logo">
+            <h1>Trợ lý hỗ trợ giải đáp thắc mắc VietinBank</h1>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <div class="suggestions-dropdown" id="suggestionsDropdown"></div>
+            <div class="input-wrapper">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Nhập tin nhắn của bạn...">
+                <button class="send-button" id="sendButton">Gửi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div class="fullscreen-modal" id="fullscreenModal">
+        <div class="fullscreen-info" id="fullscreenInfo"></div>
+        <button class="fullscreen-close" onclick="closeFullscreen()">✕</button>
+        <div class="fullscreen-slides" id="fullscreenSlidesContainer"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Cơ sở dữ liệu tri thức
+        const knowledgeBase = {
+            kichHoatThe: {
+                title: "Kích hoạt và đổi mã PIN thẻ",
+                steps: [
+                    {
+                        step: "B1",
+                        content: "Đăng nhập vào Vietinbank Ipay sau đó chọn <strong>DANH SÁCH THẺ</strong>"
+                    },
+                    {
+                        step: "B2",
+                        content: "Chọn đúng Thẻ Tín dụng hoặc Thẻ Ghi nợ cần kích hoạt sau đó Bấm <strong>KÍCH HOẠT THẺ</strong>"
+                    },
+                    {
+                        step: "B3",
+                        content: "Nhập đúng 8 số cuối trên thẻ cần kích hoạt sau đó Bấm <strong>XÁC NHẬN</strong>"
+                    },
+                    {
+                        step: "B4",
+                        content: "Nhập Soft OTP sau đó Bấm <strong>XÁC NHẬN & HOÀN TẤT</strong>"
+                    },
+                    {
+                        step: "B5",
+                        content: "Thực hiện đổi pin cho thẻ đã kích hoạt bằng cách Bấm <strong>ĐỔI PIN NGAY</strong>"
+                    },
+                    {
+                        step: "B6",
+                        content: "Nhập 2 lần số PIN sau đó Bấm <strong>TIẾP TỤC</strong>"
+                    },
+                    {
+                        step: "B7",
+                        content: "Nhập Soft OTP sau đó Bấm <strong>XÁC NHẬN & HOÀN TẤT</strong>"
+                    },
+                    {
+                        step: "B8",
+                        content: "Bấm <strong>ĐỒNG Ý</strong> để hoàn thành kích hoạt thẻ và đổi mã PIN"
+                    }
+                ],
+                videoLink: "https://youtube.com/shorts/4A7eB9eIT-Y"
+            },
+            quenMatKhau: {
+                title: "Đổi mật khẩu Ipay khi quên",
+                steps: [
+                    {
+                        step: "B1",
+                        content: "Ở màn hình đăng nhập chọn <strong>QUÊN MẬT KHẨU</strong>"
+                    },
+                    {
+                        step: "B2",
+                        content: "Nhập Tên đăng nhập và số điện thoại đăng ký sau đó Bấm <strong>TIẾP TỤC</strong><br><em>Lưu ý: Một số trường hợp tên đăng nhập có thể không phải là số điện thoại</em>"
+                    },
+                    {
+                        step: "B3",
+                        content: "Nhập mã OTP được gửi về tin nhắn (SMS) sau đó Bấm <strong>TIẾP TỤC</strong>"
+                    },
+                    {
+                        step: "B4",
+                        content: "Thực hiện xác thực khuôn mặt theo yêu cầu. Sau khi hoàn thành Ipay sẽ gửi mật khẩu mới về tin nhắn (SMS). Bấm <strong>ĐĂNG NHẬP IPAY</strong> để tiếp tục"
+                    },
+                    {
+                        step: "B5",
+                        content: "Nhập các mật khẩu theo yêu cầu:<br>- <strong>Mật khẩu hiện tại:</strong> Nhập theo mật khẩu được gửi về tin nhắn (SMS)<br>- <strong>Mật khẩu mới:</strong> Là mật khẩu mà khách hàng cần đổi<br>Sau đó Bấm <strong>TIẾP TỤC</strong><br><em>Vui lòng xem kỹ lưu ý về cách đặt mật khẩu</em>"
+                    },
+                    {
+                        step: "B6",
+                        content: "Thực hiện quét khuôn mặt để xác nhận đổi mật khẩu thành công"
+                    }
+                ],
+                videoLink: "https://www.youtube.com/watch?v=86r0pxPOzbs"
+            },
+            dongThe: {
+                title: "Đóng thẻ",
+                content: "Để đóng thẻ VietinBank, Quý khách vui lòng thực hiện theo hướng dẫn chi tiết trong slide bên dưới:",
+                slidesId: "1QRQlt8SnnKzzfkD-fDgQCN5ww7GQY3PFBOmNyDoSIW0",
+                totalSlides: 6
+            },
+            sinhTracHoc: {
+                title: "Đăng ký sinh trắc học",
+                content: "Để đăng ký sinh trắc học cho tài khoản VietinBank iPay, Quý khách vui lòng thực hiện theo hướng dẫn chi tiết trong slide và video bên dưới:",
+                slidesId: "1Q2srsbCOf0zIoqi3L9paGcrvBYwQN0gEm3O7bdNxFJ4",
+                totalSlides: 4,
+                videoLink: "https://www.youtube.com/watch?v=9yYn3SbMT9A"
+            },
+            doiThe: {
+                title: "Đổi thẻ trên Ipay",
+                content: "Để đổi thẻ VietinBank trên ứng dụng iPay, Quý khách vui lòng xem video hướng dẫn chi tiết:",
+                videoLink: "https://www.youtube.com/watch?v=IrFq6LNbl_I"
+            },
+            giaodichAnToan: {
+                title: "Hướng dẫn khách hàng giao dịch an toàn",
+                content: `Để đảm bảo an toàn trong giao dịch ngân hàng, Quý khách cần lưu ý:<br><br>
+                <strong>1. Bảo mật thông tin cá nhân:</strong><br>
+                - Tuyệt đối không chia sẻ mật khẩu, mã PIN, mã OTP cho bất kỳ ai, kể cả nhân viên ngân hàng<br>
+                - Không để lộ thông tin thẻ, số tài khoản trên mạng xã hội<br><br>
+                <strong>2. Cảnh giác với các thủ đoạn lừa đảo:</strong><br>
+                - Không truy cập vào các đường link lạ được gửi qua email, SMS, Zalo<br>
+                - Không cung cấp thông tin khi có cuộc gọi tự xưng là nhân viên ngân hàng yêu cầu<br>
+                - Kiểm tra kỹ địa chỉ website trước khi đăng nhập<br><br>
+                <strong>3. Sử dụng ứng dụng chính thức:</strong><br>
+                - Chỉ tải ứng dụng VietinBank iPay từ kênh chính thức: App Store, Google Play<br>
+                - Cập nhật ứng dụng thường xuyên để có các tính năng bảo mật mới nhất<br><br>
+                <strong>4. Liên hệ ngay khi phát hiện bất thường:</strong><br>
+                - Gọi hotline 1900 558 868 hoặc liên hệ chi nhánh gần nhất`
+            }
+        };
+
+        // Danh sách gợi ý tìm kiếm
+        const searchSuggestions = [
+            { text: "Kích hoạt thẻ", value: "kichHoatThe", keywords: ["kich hoat", "the", "pin", "active"] },
+            { text: "Quên mật khẩu Ipay", value: "quenMatKhau", keywords: ["quen", "mat khau", "ipay", "password", "doi mat khau"] },
+            { text: "Đóng thẻ", value: "dongThe", keywords: ["dong the", "khoa the", "huy the", "close card"] },
+            { text: "Đăng ký sinh trắc học", value: "sinhTracHoc", keywords: ["sinh trac", "face id", "van tay", "biometric", "khuon mat"] },
+            { text: "Đổi thẻ trên Ipay", value: "doiThe", keywords: ["doi the", "thay the", "cap lai the", "change card"] },
+            { text: "Giao dịch an toàn", value: "giaodichAnToan", keywords: ["an toan", "bao mat", "luu y", "security", "lua dao"] },
+            { text: "Gặp chuyên viên tư vấn", value: "chuyenVien", keywords: ["chuyen vien", "ho tro", "tu van", "lien he", "support", "hotline"] }
+        ];
+
+        // FAQ - Câu hỏi thường gặp
+        const faqDatabase = {
+            // Câu hỏi chung
+            "xin chào": "Trợ lý hỗ trợ giải đáp thắc mắc của VietinBank xin kính chào Quý khách. Em có thể hỗ trợ gì cho Quý khách ạ?",
+            "chào": "Xin chào Quý khách! Em có thể hỗ trợ gì cho Quý khách hôm nay ạ?",
+            "hello": "Hello! Chào mừng Quý khách đến với VietinBank. Em có thể giúp gì cho Quý khách?",
+            "cảm ơn": "Rất vui được hỗ trợ Quý khách! Quý khách cần thêm trợ giúp gì nữa không ạ?",
+            "thank": "You're welcome! Quý khách cần thêm hỗ trợ gì nữa không ạ?",
+            
+            // Hỏi về dịch vụ
+            "có thể giúp gì": "Em có thể hỗ trợ Quý khách các dịch vụ: Kích hoạt thẻ, Đổi mật khẩu Ipay, Đóng thẻ, Đăng ký sinh trắc học, Đổi thẻ, Hướng dẫn giao dịch an toàn. Quý khách cần hỗ trợ dịch vụ nào ạ?",
+            "dịch vụ": "VietinBank có các dịch vụ: Kích hoạt thẻ, Quên mật khẩu Ipay, Đóng thẻ, Đăng ký sinh trắc học, Đổi thẻ trên Ipay, Hướng dẫn giao dịch an toàn. Quý khách muốn sử dụng dịch vụ nào ạ?",
+            
+            // Kích hoạt thẻ
+            "làm sao kích hoạt thẻ": "Để kích hoạt thẻ, Quý khách vui lòng chọn dịch vụ 'Kích hoạt và đổi mã PIN thẻ' từ menu. Em sẽ hướng dẫn chi tiết từng bước ạ.",
+            "thẻ chưa dùng được": "Thẻ của Quý khách có thể chưa được kích hoạt. Quý khách vui lòng chọn dịch vụ 'Kích hoạt thẻ' để em hướng dẫn kích hoạt nhé.",
+            
+            // Mật khẩu
+            "quên mật khẩu": "Để đổi lại mật khẩu Ipay khi quên, Quý khách vui lòng chọn dịch vụ 'Quên mật khẩu Ipay'. Em sẽ hướng dẫn Quý khách lấy lại mật khẩu ạ.",
+            "đổi mật khẩu": "Quý khách muốn đổi mật khẩu Ipay phải không ạ? Vui lòng chọn dịch vụ 'Quên mật khẩu Ipay' để em hướng dẫn nhé.",
+            "không đăng nhập được": "Nếu Quý khách quên mật khẩu, vui lòng chọn dịch vụ 'Quên mật khẩu Ipay'. Em sẽ hướng dẫn cách lấy lại mật khẩu ạ.",
+            
+            // Đóng thẻ
+            "muốn đóng thẻ": "Để đóng thẻ, Quý khách vui lòng chọn dịch vụ 'Đóng thẻ' từ menu. Em sẽ hướng dẫn chi tiết các bước thực hiện ạ.",
+            "hủy thẻ": "Để hủy/đóng thẻ, Quý khách vui lòng chọn dịch vụ 'Đóng thẻ'. Em sẽ hướng dẫn Quý khách thực hiện ạ.",
+            
+            // Sinh trắc học
+            "sinh trắc học": "Để đăng ký sinh trắc học, Quý khách vui lòng chọn dịch vụ 'Đăng ký sinh trắc học'. Em sẽ hướng dẫn chi tiết cách đăng ký ạ.",
+            "face id": "Face ID là tính năng sinh trắc học. Quý khách vui lòng chọn 'Đăng ký sinh trắc học' để em hướng dẫn cách đăng ký nhé.",
+            
+            // Liên hệ
+            "hotline": "Hotline VietinBank: 1900 558 868. Quý khách cũng có thể chọn 'Gặp chuyên viên tư vấn' để nhận thông tin liên hệ chi tiết ạ.",
+            "số điện thoại": "Quý khách có thể gọi Hotline 1900 558 868 hoặc chọn 'Gặp chuyên viên tư vấn' để được hỗ trợ trực tiếp ạ.",
+            "liên hệ": "Quý khách muốn liên hệ chuyên viên tư vấn phải không ạ? Vui lòng chọn 'Gặp chuyên viên tư vấn' từ menu nhé.",
+            
+            // An toàn
+            "có an toàn không": "VietinBank luôn đảm bảo an toàn tuyệt đối cho khách hàng. Quý khách vui lòng chọn 'Hướng dẫn giao dịch an toàn' để xem các lưu ý bảo mật ạ.",
+            "bảo mật": "Để tìm hiểu về bảo mật và giao dịch an toàn, Quý khách vui lòng chọn 'Hướng dẫn giao dịch an toàn' từ menu ạ."
+        };
+
+        // Trạng thái chatbot
+        let currentState = 'welcome';
+        let currentTopic = null;
+        let currentSwiper = null;
+
+        // Khởi tạo chatbot
+        function initChatbot() {
+            showWelcomeMessage();
+            initInputHandlers();
+        }
+
+        // Khởi tạo xử lý input
+        function initInputHandlers() {
+            const chatInput = document.getElementById('chatInput');
+            const suggestionsDropdown = document.getElementById('suggestionsDropdown');
+
+            chatInput.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                
+                if (query.length > 0) {
+                    const matches = searchSuggestions.filter(item => {
+                        return item.text.toLowerCase().includes(query) ||
+                               item.keywords.some(keyword => keyword.includes(query));
+                    });
+
+                    if (matches.length > 0) {
+                        showSuggestions(matches);
+                    } else {
+                        hideSuggestions();
+                    }
+                } else {
+                    hideSuggestions();
+                }
+            });
+
+            // Đóng suggestions khi click bên ngoài
+            document.addEventListener('click', function(e) {
+                if (!chatInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
+                    hideSuggestions();
+                }
+            });
+        }
+
+        // Hiển thị gợi ý
+        function showSuggestions(matches) {
+            const suggestionsDropdown = document.getElementById('suggestionsDropdown');
+            suggestionsDropdown.innerHTML = '';
+            
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = match.text;
+                div.onclick = function() {
+                    selectSuggestion(match);
+                };
+                suggestionsDropdown.appendChild(div);
+            });
+            
+            suggestionsDropdown.classList.add('show');
+        }
+
+        // Ẩn gợi ý
+        function hideSuggestions() {
+            document.getElementById('suggestionsDropdown').classList.remove('show');
+        }
+
+        // Chọn gợi ý
+        function selectSuggestion(match) {
+            document.getElementById('chatInput').value = match.text;
+            hideSuggestions();
+            handleOptionClick(match.value);
+            document.getElementById('chatInput').value = '';
+        }
+
+        // Tìm kiếm câu trả lời trong FAQ
+        function findFAQAnswer(query) {
+            query = query.toLowerCase().trim();
+            
+            for (let key in faqDatabase) {
+                if (query.includes(key)) {
+                    return faqDatabase[key];
+                }
+            }
+            
+            return null;
+        }
+
+        // Hiển thị tin nhắn chào mừng
+        function showWelcomeMessage() {
+            const welcomeMsg = `Trợ lý hỗ trợ giải đáp thắc mắc của VietinBank xin kính chào Quý khách.<br><br>Em có thể hỗ trợ gì cho Quý khách ạ?`;
+            addBotMessage(welcomeMsg);
+            showMainMenu();
+        }
+
+        // Hiển thị menu chính
+        function showMainMenu() {
+            const menuOptions = [
+                { text: '1. Kích hoạt và đổi mã pin thẻ', value: 'kichHoatThe' },
+                { text: '2. Quên mật khẩu Ipay', value: 'quenMatKhau' },
+                { text: '3. Đóng thẻ', value: 'dongThe' },
+                { text: '4. Đăng ký sinh trắc học', value: 'sinhTracHoc' },
+                { text: '5. Đổi thẻ trên Ipay', value: 'doiThe' },
+                { text: '6. Hướng dẫn giao dịch an toàn', value: 'giaodichAnToan' },
+                { text: '7. Gặp chuyên viên tư vấn', value: 'chuyenVien' }
+            ];
+            addButtonOptions(menuOptions);
+        }
+
+        // Thêm tin nhắn bot
+        function addBotMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    ${message}
+                </div>
+            `;
+            messagesDiv.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // Thêm tin nhắn người dùng
+        function addUserMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    ${message}
+                </div>
+            `;
+            messagesDiv.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // Thêm các nút lựa chọn
+        function addButtonOptions(options) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const buttonDiv = document.createElement('div');
+            buttonDiv.className = 'message bot';
+            
+            let buttonsHTML = '<div class="message-content"><div class="button-options">';
+            options.forEach(option => {
+                const buttonClass = option.value === 'chuyenVien' ? 'option-button secondary' : 'option-button';
+                buttonsHTML += `<button class="${buttonClass}" onclick="handleOptionClick('${option.value}')">${option.text}</button>`;
+            });
+            buttonsHTML += '</div></div>';
+            
+            buttonDiv.innerHTML = buttonsHTML;
+            messagesDiv.appendChild(buttonDiv);
+            scrollToBottom();
+        }
+
+        // Xử lý click nút lựa chọn
+        function handleOptionClick(value) {
+            const optionText = {
+                'kichHoatThe': '1. Kích hoạt và đổi mã pin thẻ',
+                'quenMatKhau': '2. Quên mật khẩu Ipay',
+                'dongThe': '3. Đóng thẻ',
+                'sinhTracHoc': '4. Đăng ký sinh trắc học',
+                'doiThe': '5. Đổi thẻ trên Ipay',
+                'giaodichAnToan': '6. Hướng dẫn giao dịch an toàn',
+                'chuyenVien': '7. Gặp chuyên viên tư vấn'
+            };
+
+            if (currentState === 'waiting_feedback' || value === 'success' || value === 'failed' || value === 'menu' || value === 'end') {
+                if (value === 'success') {
+                    addUserMessage('✅ Đã thực hiện thành công');
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addBotMessage('Tuyệt vời! Em rất vui khi đã hỗ trợ được Quý khách thành công. 😊');
+                        setTimeout(() => {
+                            showMainMenu();
+                        }, 500);
+                        currentState = 'welcome';
+                    }, 800);
+                } else if (value === 'failed') {
+                    addUserMessage('❌ Chưa thực hiện được');
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addBotMessage('Em xin lỗi vì chưa hỗ trợ được Quý khách tốt. Quý khách có thể liên hệ Chuyên viên tư vấn để được hỗ trợ trực tiếp nhé.');
+                        setTimeout(() => {
+                            showContactInfo();
+                        }, 500);
+                        currentState = 'welcome';
+                    }, 800);
+                } else if (value === 'menu') {
+                    addUserMessage('🔙 Quay lại menu chính');
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addBotMessage('Dạ vâng, em đang đưa Quý khách quay lại menu chính.');
+                        setTimeout(() => {
+                            showMainMenu();
+                        }, 500);
+                        currentState = 'welcome';
+                    }, 800);
+                } else if (value === 'end') {
+                    addUserMessage('👋 Kết thúc cuộc trò chuyện');
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addBotMessage('Cảm ơn Quý khách đã sử dụng dịch vụ của VietinBank. Chúc Quý khách một ngày tốt lành! 🌟');
+                        setTimeout(() => {
+                            addBotMessage('Nếu cần hỗ trợ, Quý khách có thể bắt đầu lại cuộc trò chuyện bất cứ lúc nào. 😊');
+                            setTimeout(() => {
+                                const restartOption = [
+                                    { text: '🔄 Bắt đầu lại', value: 'restart' }
+                                ];
+                                addButtonOptions(restartOption);
+                            }, 500);
+                        }, 500);
+                        currentState = 'ended';
+                    }, 800);
+                } else if (value === 'restart') {
+                    addUserMessage('🔄 Bắt đầu lại');
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        clearChat();
+                        showWelcomeMessage();
+                        currentState = 'welcome';
+                    }, 800);
+                }
+            } else {
+                addUserMessage(optionText[value] || value);
+                
+                showTypingIndicator();
+                
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    handleUserChoice(value);
+                }, 1000);
+            }
+        }
+
+        // Xử lý lựa chọn của người dùng
+        function handleUserChoice(choice) {
+            currentTopic = choice;
+
+            if (choice === 'chuyenVien') {
+                showContactInfo();
+                return;
+            }
+
+            const topicData = knowledgeBase[choice];
+            if (!topicData) {
+                addBotMessage('Xin lỗi, em chưa có thông tin về dịch vụ này. Quý khách vui lòng chọn dịch vụ khác hoặc liên hệ chuyên viên tư vấn.');
+                showMainMenu();
+                return;
+            }
+
+            // Hiển thị nội dung
+            if (topicData.content) {
+                addBotMessage(topicData.content);
+            }
+
+            // Hiển thị hướng dẫn từng bước
+            if (topicData.steps) {
+                if (choice === 'kichHoatThe') {
+                    addBotMessage('Dạ, để kích hoạt thẻ VietinBank, Quý khách có thể thực hiện rất đơn giản theo hướng dẫn sau:');
+                } else if (choice === 'quenMatKhau') {
+                    addBotMessage('Để đổi mật khẩu VietinBank iPay khi quên, Quý khách vui lòng làm theo hướng dẫn sau:');
+                }
+                showStepByStepGuide(topicData);
+            }
+
+            // Hiển thị Google Slides nếu có
+            if (topicData.slidesId) {
+                showGoogleSlides(topicData.slidesId, topicData.totalSlides, topicData.title);
+            }
+
+            // Hiển thị link video nếu có
+            if (topicData.videoLink) {
+                showVideoLink(topicData.videoLink);
+            }
+
+            askForFeedback();
+        }
+
+        // Hiển thị hướng dẫn từng bước
+        function showStepByStepGuide(topicData) {
+            let stepsHTML = '<div style="margin-top: 10px;">';
+            
+            topicData.steps.forEach(step => {
+                stepsHTML += `<div class="step-guide"><strong>${step.step}:</strong> ${step.content}</div>`;
+            });
+            
+            stepsHTML += '</div>';
+            addBotMessage(stepsHTML);
+        }
+
+        // Hiển thị Google Slides
+        function showGoogleSlides(slidesId, totalSlides, title) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const slidesDiv = document.createElement('div');
+            slidesDiv.className = 'message bot';
+            
+            const uniqueId = 'swiper-' + Date.now();
+            
+            let slidesHTML = `
+                <div class="message-content">
+                    <div class="slides-viewer">
+                        <button class="fullscreen-icon-btn" onclick="openFullscreen('${slidesId}', ${totalSlides}, '${title}')" title="Xem toàn màn hình">
+                            ⛶
+                        </button>
+                        <div class="swiper ${uniqueId}">
+                            <div class="swiper-wrapper">`;
+            
+            for (let i = 1; i <= totalSlides; i++) {
+                slidesHTML += `
+                    <div class="swiper-slide">
+                        <div class="slides-container">
+                            <iframe 
+                                src="https://docs.google.com/presentation/d/${slidesId}/embed?start=false&loop=false&delayms=3000&slide=id.p${i > 1 ? i : ''}&rm=minimal"
+                                frameborder="0"
+                                allowfullscreen="true"
+                                mozallowfullscreen="true"
+                                webkitallowfullscreen="true">
+                            </iframe>
+                        </div>
+                    </div>`;
+            }
+            
+            slidesHTML += `
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="slide-counter">
+                            <span class="current-slide">1</span> / ${totalSlides}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            slidesDiv.innerHTML = slidesHTML;
+            messagesDiv.appendChild(slidesDiv);
+            scrollToBottom();
+            
+            // Khởi tạo Swiper
+            setTimeout(() => {
+                currentSwiper = new Swiper('.' + uniqueId, {
+                    navigation: {
+                        nextEl: '.' + uniqueId + ' .swiper-button-next',
+                        prevEl: '.' + uniqueId + ' .swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.' + uniqueId + ' .swiper-pagination',
+                        clickable: true,
+                    },
+                    on: {
+                        slideChange: function() {
+                            const counter = slidesDiv.querySelector('.current-slide');
+                            if (counter) {
+                                counter.textContent = this.activeIndex + 1;
+                            }
+                        }
+                    }
+                });
+            }, 100);
+        }
+
+        // Mở fullscreen
+        function openFullscreen(slidesId, totalSlides, title) {
+            const modal = document.getElementById('fullscreenModal');
+            const container = document.getElementById('fullscreenSlidesContainer');
+            const info = document.getElementById('fullscreenInfo');
+            
+            info.textContent = `${title} - 1/${totalSlides}`;
+            
+            const uniqueId = 'fullscreen-swiper-' + Date.now();
+            
+            let slidesHTML = `
+                <div class="swiper ${uniqueId}" style="width: 100%; height: 100%;">
+                    <div class="swiper-wrapper">`;
+            
+            for (let i = 1; i <= totalSlides; i++) {
+                slidesHTML += `
+                    <div class="swiper-slide">
+                        <div style="width: 100%; height: 100%;">
+                            <iframe 
+                                src="https://docs.google.com/presentation/d/${slidesId}/embed?start=false&loop=false&delayms=3000&slide=id.p${i > 1 ? i : ''}&rm=minimal"
+                                frameborder="0"
+                                style="width: 100%; height: 100%; pointer-events: auto;"
+                                allowfullscreen="true"
+                                mozallowfullscreen="true"
+                                webkitallowfullscreen="true">
+                            </iframe>
+                        </div>
+                    </div>`;
+            }
+            
+            slidesHTML += `
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            `;
+            
+            container.innerHTML = slidesHTML;
+            modal.classList.add('show');
+            
+            setTimeout(() => {
+                new Swiper('.' + uniqueId, {
+                    navigation: {
+                        nextEl: '.' + uniqueId + ' .swiper-button-next',
+                        prevEl: '.' + uniqueId + ' .swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.' + uniqueId + ' .swiper-pagination',
+                        clickable: true,
+                    },
+                    on: {
+                        slideChange: function() {
+                            info.textContent = `${title} - ${this.activeIndex + 1}/${totalSlides}`;
+                        }
+                    }
+                });
+            }, 100);
+        }
+
+        // Đóng fullscreen
+        function closeFullscreen() {
+            document.getElementById('fullscreenModal').classList.remove('show');
+        }
+
+        // Đóng fullscreen khi click bên ngoài
+        document.getElementById('fullscreenModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeFullscreen();
+            }
+        });
+
+        // Đóng fullscreen khi nhấn ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            }
+        });
+
+        // Hiển thị link video
+        function showVideoLink(videoLink) {
+            if (videoLink) {
+                const videoMsg = `<a href="${videoLink}" target="_blank" class="video-link">Xem video hướng dẫn</a>`;
+                addBotMessage(videoMsg);
+            }
+        }
+
+        // Hỏi phản hồi
+        function askForFeedback() {
+            currentState = 'waiting_feedback';
+            setTimeout(() => {
+                addBotMessage('Quý khách đã thực hiện thành công chưa ạ? Quý khách có cần em hỗ trợ thêm gì không?');
+                
+                const feedbackOptions = [
+                    { text: '✅ Đã thực hiện thành công', value: 'success' },
+                    { text: '❌ Chưa thực hiện được', value: 'failed' },
+                    { text: '🔙 Quay lại menu chính', value: 'menu' },
+                    { text: '👋 Kết thúc cuộc trò chuyện', value: 'end' }
+                ];
+                addButtonOptions(feedbackOptions);
+            }, 500);
+        }
+
+        // Hiển thị thông tin liên hệ
+        function showContactInfo() {
+            const contactMsg = `Để được hỗ trợ trực tiếp và nhanh chóng hơn, Quý khách vui lòng liên hệ với Chuyên viên Dịch vụ Khách hàng của chúng tôi:<br><br>
+            <strong>Tên:</strong> Trần Văn XXXXX<br>
+            <strong>Số điện thoại:</strong> 09XXXXXXXX<br>
+            <strong>Đơn vị:</strong> Phòng Dịch vụ Khách hàng, VietinBank Chi nhánh Cà Mau<br><br>
+            <em>⚠️ Lưu ý: Quý khách vui lòng không chia sẻ mật khẩu hay mã OTP cho bất kỳ ai, kể cả nhân viên ngân hàng.</em>`;
+            
+            addBotMessage(contactMsg);
+            
+            setTimeout(() => {
+                const options = [
+                    { text: '🔙 Quay lại menu chính', value: 'menu' },
+                    { text: '👋 Kết thúc cuộc trò chuyện', value: 'end' }
+                ];
+                addButtonOptions(options);
+            }, 500);
+        }
+
+        // Xóa chat
+        function clearChat() {
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = '<div class="typing-indicator" id="typingIndicator"><span></span><span></span><span></span></div>';
+        }
+
+        // Hiển thị typing indicator
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').classList.add('show');
+            scrollToBottom();
+        }
+
+        // Ẩn typing indicator
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').classList.remove('show');
+        }
+
+        // Cuộn xuống cuối
+        function scrollToBottom() {
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Xử lý gửi tin nhắn
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addUserMessage(message);
+                input.value = '';
+                hideSuggestions();
+                
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    
+                    // Tìm kiếm trong FAQ
+                    const faqAnswer = findFAQAnswer(message);
+                    
+                    if (faqAnswer) {
+                        addBotMessage(faqAnswer);
+                        setTimeout(() => {
+                            showMainMenu();
+                        }, 500);
+                    } else {
+                        addBotMessage('Em xin lỗi, em chưa hiểu rõ câu hỏi của Quý khách. Quý khách vui lòng chọn dịch vụ phù hợp từ menu bên dưới hoặc gõ từ khóa để tìm kiếm nhé! 😊');
+                        setTimeout(() => {
+                            showMainMenu();
+                        }, 500);
+                    }
+                }, 1000);
+            }
+        }
+
+        // Khởi động chatbot khi trang load
+        window.onload = function() {
+            initChatbot();
+        };
+    </script>
+</body>
+</html>
