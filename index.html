@@ -155,6 +155,25 @@
             flex-shrink: 0;
         }
 
+        /* Google Maps Link Button */
+        .message-content .video-link.map-link {
+            background: #4285F4;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+
+        .message-content .video-link.map-link:hover {
+            background: #3367D6;
+            box-shadow: 0 6px 16px rgba(66, 133, 244, 0.4);
+        }
+
+        .message-content .video-link.map-link::before {
+            display: none;
+        }
+
+        .message-content .video-link.map-link svg {
+            flex-shrink: 0;
+        }
+
         .button-options {
             display: flex;
             flex-wrap: wrap;
@@ -302,7 +321,7 @@
             color: rgb(215, 18, 73);
         }
 
-        /* Slides Viewer - Tối giản chỉ có slide */
+        /* Slides Viewer */
         .slides-viewer {
             position: relative;
             margin: 15px 0;
@@ -437,12 +456,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .fullscreen-close {
@@ -762,68 +777,26 @@
             kichHoatThe: {
                 title: "Kích hoạt và đổi mã PIN thẻ",
                 steps: [
-                    {
-                        step: "B1",
-                        content: "Đăng nhập vào Vietinbank Ipay sau đó chọn <strong>DANH SÁCH THẺ</strong>"
-                    },
-                    {
-                        step: "B2",
-                        content: "Chọn đúng Thẻ Tín dụng hoặc Thẻ Ghi nợ cần kích hoạt sau đó Bấm <strong>KÍCH HOẠT THẺ</strong>"
-                    },
-                    {
-                        step: "B3",
-                        content: "Nhập đúng 8 số cuối trên thẻ cần kích hoạt sau đó Bấm <strong>XÁC NHẬN</strong>"
-                    },
-                    {
-                        step: "B4",
-                        content: "Nhập Soft OTP sau đó Bấm <strong>XÁC NHẬN & HOÀN TẤT</strong>"
-                    },
-                    {
-                        step: "B5",
-                        content: "Thực hiện đổi pin cho thẻ đã kích hoạt bằng cách Bấm <strong>ĐỔI PIN NGAY</strong>"
-                    },
-                    {
-                        step: "B6",
-                        content: "Nhập 2 lần số PIN sau đó Bấm <strong>TIẾP TỤC</strong>"
-                    },
-                    {
-                        step: "B7",
-                        content: "Nhập Soft OTP sau đó Bấm <strong>XÁC NHẬN & HOÀN TẤT</strong>"
-                    },
-                    {
-                        step: "B8",
-                        content: "Bấm <strong>ĐỒNG Ý</strong> để hoàn thành kích hoạt thẻ và đổi mã PIN"
-                    }
+                    { step: "B1", content: "Đăng nhập vào Vietinbank Ipay sau đó chọn <strong>DANH SÁCH THẺ</strong>" },
+                    { step: "B2", content: "Chọn đúng Thẻ Tín dụng hoặc Thẻ Ghi nợ cần kích hoạt sau đó Bấm <strong>KÍCH HOẠT THẺ</strong>" },
+                    { step: "B3", content: "Nhập đúng 8 số cuối trên thẻ cần kích hoạt sau đó Bấm <strong>XÁC NHẬN</strong>" },
+                    { step: "B4", content: "Nhập Soft OTP sau đó Bấm <strong>XÁC NHẬN & HOÀN TẤT</strong>" },
+                    { step: "B5", content: "Thực hiện đổi pin cho thẻ đã kích hoạt bằng cách Bấm <strong>ĐỔI PIN NGAY</strong>" },
+                    { step: "B6", content: "Nhập 2 lần số PIN sau đó Bấm <strong>TIẾP TỤC</strong>" },
+                    { step: "B7", content: "Nhập Soft OTP sau đó Bấm <strong>XÁC NHẬN & HOÀN TẤT</strong>" },
+                    { step: "B8", content: "Bấm <strong>ĐỒNG Ý</strong> để hoàn thành kích hoạt thẻ và đổi mã PIN" }
                 ],
                 videoLink: "https://youtube.com/shorts/4A7eB9eIT-Y"
             },
             quenMatKhau: {
                 title: "Đổi mật khẩu Ipay khi quên",
                 steps: [
-                    {
-                        step: "B1",
-                        content: "Ở màn hình đăng nhập chọn <strong>QUÊN MẬT KHẨU</strong>"
-                    },
-                    {
-                        step: "B2",
-                        content: "Nhập Tên đăng nhập và số điện thoại đăng ký sau đó Bấm <strong>TIẾP TỤC</strong><br><em>Lưu ý: Một số trường hợp tên đăng nhập có thể không phải là số điện thoại</em>"
-                    },
-                    {
-                        step: "B3",
-                        content: "Nhập mã OTP được gửi về tin nhắn (SMS) sau đó Bấm <strong>TIẾP TỤC</strong>"
-                    },
-                    {
-                        step: "B4",
-                        content: "Thực hiện xác thực khuôn mặt theo yêu cầu. Sau khi hoàn thành Ipay sẽ gửi mật khẩu mới về tin nhắn (SMS). Bấm <strong>ĐĂNG NHẬP IPAY</strong> để tiếp tục"
-                    },
-                    {
-                        step: "B5",
-                        content: "Nhập các mật khẩu theo yêu cầu:<br>- <strong>Mật khẩu hiện tại:</strong> Nhập theo mật khẩu được gửi về tin nhắn (SMS)<br>- <strong>Mật khẩu mới:</strong> Là mật khẩu mà khách hàng cần đổi<br>Sau đó Bấm <strong>TIẾP TỤC</strong><br><em>Vui lòng xem kỹ lưu ý về cách đặt mật khẩu</em>"
-                    },
-                    {
-                        step: "B6",
-                        content: "Thực hiện quét khuôn mặt để xác nhận đổi mật khẩu thành công"
-                    }
+                    { step: "B1", content: "Ở màn hình đăng nhập chọn <strong>QUÊN MẬT KHẨU</strong>" },
+                    { step: "B2", content: "Nhập Tên đăng nhập và số điện thoại đăng ký sau đó Bấm <strong>TIẾP TỤC</strong><br><em>Lưu ý: Một số trường hợp tên đăng nhập có thể không phải là số điện thoại</em>" },
+                    { step: "B3", content: "Nhập mã OTP được gửi về tin nhắn (SMS) sau đó Bấm <strong>TIẾP TỤC</strong>" },
+                    { step: "B4", content: "Thực hiện xác thực khuôn mặt theo yêu cầu. Sau khi hoàn thành Ipay sẽ gửi mật khẩu mới về tin nhắn (SMS). Bấm <strong>ĐĂNG NHẬP IPAY</strong> để tiếp tục" },
+                    { step: "B5", content: "Nhập các mật khẩu theo yêu cầu:<br>- <strong>Mật khẩu hiện tại:</strong> Nhập theo mật khẩu được gửi về tin nhắn (SMS)<br>- <strong>Mật khẩu mới:</strong> Là mật khẩu mà khách hàng cần đổi<br>Sau đó Bấm <strong>TIẾP TỤC</strong><br><em>Vui lòng xem kỹ lưu ý về cách đặt mật khẩu</em>" },
+                    { step: "B6", content: "Thực hiện quét khuôn mặt để xác nhận đổi mật khẩu thành công" }
                 ],
                 videoLink: "https://www.youtube.com/watch?v=86r0pxPOzbs"
             },
@@ -871,48 +844,33 @@
             { text: "Đăng ký sinh trắc học", value: "sinhTracHoc", keywords: ["sinh trac", "face id", "van tay", "biometric", "khuon mat"] },
             { text: "Đổi thẻ trên Ipay", value: "doiThe", keywords: ["doi the", "thay the", "cap lai the", "change card"] },
             { text: "Giao dịch an toàn", value: "giaodichAnToan", keywords: ["an toan", "bao mat", "luu y", "security", "lua dao"] },
-            { text: "Gặp chuyên viên tư vấn", value: "chuyenVien", keywords: ["chuyen vien", "ho tro", "tu van", "lien he", "support", "hotline"] }
-            ,{ text: "Chỉ đường", value: "chiDuong", keywords: ["chi duong", "chỉ đường", "duong", "map", "atm", "chỉ đường đến atm"] }
+            { text: "Gặp chuyên viên tư vấn", value: "chuyenVien", keywords: ["chuyen vien", "ho tro", "tu van", "lien he", "support", "hotline"] },
+            { text: "Chỉ đường đến PGD & ATM", value: "chiDuong", keywords: ["chi duong", "chỉ đường", "duong", "map", "atm", "pgd", "phong giao dich"] }
         ];
 
         // FAQ - Câu hỏi thường gặp
         const faqDatabase = {
-            // Câu hỏi chung
             "xin chào": "Trợ lý hỗ trợ giải đáp thắc mắc của VietinBank xin kính chào Quý khách. Em có thể hỗ trợ gì cho Quý khách ạ?",
             "chào": "Xin chào Quý khách! Em có thể hỗ trợ gì cho Quý khách hôm nay ạ?",
             "hello": "Hello! Chào mừng Quý khách đến với VietinBank. Em có thể giúp gì cho Quý khách?",
             "cảm ơn": "Rất vui được hỗ trợ Quý khách! Quý khách cần thêm trợ giúp gì nữa không ạ?",
             "thank": "You're welcome! Quý khách cần thêm hỗ trợ gì nữa không ạ?",
-            
-            // Hỏi về dịch vụ
             "có thể giúp gì": "Em có thể hỗ trợ Quý khách các dịch vụ: Kích hoạt thẻ, Đổi mật khẩu Ipay, Đóng thẻ, Đăng ký sinh trắc học, Đổi thẻ, Hướng dẫn giao dịch an toàn. Quý khách cần hỗ trợ dịch vụ nào ạ?",
             "dịch vụ": "VietinBank có các dịch vụ: Kích hoạt thẻ, Quên mật khẩu Ipay, Đóng thẻ, Đăng ký sinh trắc học, Đổi thẻ trên Ipay, Hướng dẫn giao dịch an toàn. Quý khách muốn sử dụng dịch vụ nào ạ?",
-            
-            // Kích hoạt thẻ
             "làm sao kích hoạt thẻ": "Để kích hoạt thẻ, Quý khách vui lòng chọn dịch vụ 'Kích hoạt và đổi mã PIN thẻ' từ menu. Em sẽ hướng dẫn chi tiết từng bước ạ.",
             "thẻ chưa dùng được": "Thẻ của Quý khách có thể chưa được kích hoạt. Quý khách vui lòng chọn dịch vụ 'Kích hoạt thẻ' để em hướng dẫn kích hoạt nhé.",
-            
-            // Mật khẩu
             "quên mật khẩu": "Để đổi lại mật khẩu Ipay khi quên, Quý khách vui lòng chọn dịch vụ 'Quên mật khẩu Ipay'. Em sẽ hướng dẫn Quý khách lấy lại mật khẩu ạ.",
             "đổi mật khẩu": "Quý khách muốn đổi mật khẩu Ipay phải không ạ? Vui lòng chọn dịch vụ 'Quên mật khẩu Ipay' để em hướng dẫn nhé.",
             "không đăng nhập được": "Nếu Quý khách quên mật khẩu, vui lòng chọn dịch vụ 'Quên mật khẩu Ipay'. Em sẽ hướng dẫn cách lấy lại mật khẩu ạ.",
-            
-            // Đóng thẻ
             "muốn đóng thẻ": "Để đóng thẻ, Quý khách vui lòng chọn dịch vụ 'Đóng thẻ' từ menu. Em sẽ hướng dẫn chi tiết các bước thực hiện ạ.",
             "hủy thẻ": "Để hủy/đóng thẻ, Quý khách vui lòng chọn dịch vụ 'Đóng thẻ'. Em sẽ hướng dẫn Quý khách thực hiện ạ.",
-            
-            // Sinh trắc học
             "sinh trắc học": "Để đăng ký sinh trắc học, Quý khách vui lòng chọn dịch vụ 'Đăng ký sinh trắc học'. Em sẽ hướng dẫn chi tiết cách đăng ký ạ.",
             "face id": "Face ID là tính năng sinh trắc học. Quý khách vui lòng chọn 'Đăng ký sinh trắc học' để em hướng dẫn cách đăng ký nhé.",
-            
-            // Liên hệ
             "hotline": "Hotline VietinBank: 1900 558 868. Quý khách cũng có thể chọn 'Gặp chuyên viên tư vấn' để nhận thông tin liên hệ chi tiết ạ.",
             "số điện thoại": "Quý khách có thể gọi Hotline 1900 558 868 hoặc chọn 'Gặp chuyên viên tư vấn' để được hỗ trợ trực tiếp ạ.",
             "liên hệ": "Quý khách muốn liên hệ chuyên viên tư vấn phải không ạ? Vui lòng chọn 'Gặp chuyên viên tư vấn' từ menu nhé.",
-            "chỉ đường": "Quý khách có thể xem bản đồ và chỉ đường tới ATM tại: <a href='https://eokhanhthien.github.io/atm-location/' target='_blank'>Mở bản đồ chỉ đường</a>",
-            "chi duong": "Quý khách có thể xem bản đồ và chỉ đường tới ATM tại: <a href='https://eokhanhthien.github.io/atm-location/' target='_blank'>Mở bản đồ chỉ đường</a>",
-            
-            // An toàn
+            "chỉ đường": "Quý khách có thể xem bản đồ và chỉ đường tới PGD & ATM. Vui lòng chọn 'Chỉ đường đến PGD & ATM' từ menu nhé.",
+            "chi duong": "Quý khách có thể xem bản đồ và chỉ đường tới PGD & ATM. Vui lòng chọn 'Chỉ đường đến PGD & ATM' từ menu nhé.",
             "có an toàn không": "VietinBank luôn đảm bảo an toàn tuyệt đối cho khách hàng. Quý khách vui lòng chọn 'Hướng dẫn giao dịch an toàn' để xem các lưu ý bảo mật ạ.",
             "bảo mật": "Để tìm hiểu về bảo mật và giao dịch an toàn, Quý khách vui lòng chọn 'Hướng dẫn giao dịch an toàn' từ menu ạ."
         };
@@ -952,7 +910,6 @@
                 }
             });
 
-            // Đóng suggestions khi click bên ngoài
             document.addEventListener('click', function(e) {
                 if (!chatInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
                     hideSuggestions();
@@ -960,7 +917,6 @@
             });
         }
 
-        // Hiển thị gợi ý
         function showSuggestions(matches) {
             const suggestionsDropdown = document.getElementById('suggestionsDropdown');
             suggestionsDropdown.innerHTML = '';
@@ -978,12 +934,10 @@
             suggestionsDropdown.classList.add('show');
         }
 
-        // Ẩn gợi ý
         function hideSuggestions() {
             document.getElementById('suggestionsDropdown').classList.remove('show');
         }
 
-        // Chọn gợi ý
         function selectSuggestion(match) {
             document.getElementById('chatInput').value = match.text;
             hideSuggestions();
@@ -991,7 +945,6 @@
             document.getElementById('chatInput').value = '';
         }
 
-        // Tìm kiếm câu trả lời trong FAQ
         function findFAQAnswer(query) {
             query = query.toLowerCase().trim();
             
@@ -1004,14 +957,12 @@
             return null;
         }
 
-        // Hiển thị tin nhắn chào mừng
         function showWelcomeMessage() {
             const welcomeMsg = `Trợ lý hỗ trợ giải đáp thắc mắc của VietinBank xin kính chào Quý khách.<br><br>Em có thể hỗ trợ gì cho Quý khách ạ?`;
             addBotMessage(welcomeMsg);
             showMainMenu();
         }
 
-        // Hiển thị menu chính
         function showMainMenu() {
             const menuOptions = [
                 { text: '1. Kích hoạt và đổi mã pin thẻ', value: 'kichHoatThe' },
@@ -1020,41 +971,30 @@
                 { text: '4. Đăng ký sinh trắc học', value: 'sinhTracHoc' },
                 { text: '5. Đổi thẻ trên Ipay', value: 'doiThe' },
                 { text: '6. Hướng dẫn giao dịch an toàn', value: 'giaodichAnToan' },
-                { text: '7. Chỉ đường', value: 'chiDuong' },
+                { text: '7. Chỉ đường đến PGD & ATM', value: 'chiDuong' },
                 { text: '8. Gặp chuyên viên tư vấn', value: 'chuyenVien' },
             ];
             addButtonOptions(menuOptions);
         }
 
-        // Thêm tin nhắn bot
         function addBotMessage(message) {
             const messagesDiv = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message bot';
-            messageDiv.innerHTML = `
-                <div class="message-content">
-                    ${message}
-                </div>
-            `;
+            messageDiv.innerHTML = `<div class="message-content">${message}</div>`;
             messagesDiv.appendChild(messageDiv);
             scrollToBottom();
         }
 
-        // Thêm tin nhắn người dùng
         function addUserMessage(message) {
             const messagesDiv = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message user';
-            messageDiv.innerHTML = `
-                <div class="message-content">
-                    ${message}
-                </div>
-            `;
+            messageDiv.innerHTML = `<div class="message-content">${message}</div>`;
             messagesDiv.appendChild(messageDiv);
             scrollToBottom();
         }
 
-        // Thêm các nút lựa chọn
         function addButtonOptions(options) {
             const messagesDiv = document.getElementById('chatMessages');
             const buttonDiv = document.createElement('div');
@@ -1072,7 +1012,6 @@
             scrollToBottom();
         }
 
-        // Xử lý click nút lựa chọn
         function handleOptionClick(value) {
             const optionText = {
                 'kichHoatThe': '1. Kích hoạt và đổi mã pin thẻ',
@@ -1081,7 +1020,7 @@
                 'sinhTracHoc': '4. Đăng ký sinh trắc học',
                 'doiThe': '5. Đổi thẻ trên Ipay',
                 'giaodichAnToan': '6. Hướng dẫn giao dịch an toàn',
-                'chiDuong': '7. Chỉ đường',
+                'chiDuong': '7. Chỉ đường đến PGD & ATM',
                 'chuyenVien': '8. Gặp chuyên viên tư vấn',
             };
 
@@ -1092,9 +1031,7 @@
                     setTimeout(() => {
                         hideTypingIndicator();
                         addBotMessage('Tuyệt vời! Em rất vui khi đã hỗ trợ được Quý khách thành công. 😊');
-                        setTimeout(() => {
-                            showMainMenu();
-                        }, 500);
+                        setTimeout(() => { showMainMenu(); }, 500);
                         currentState = 'welcome';
                     }, 800);
                 } else if (value === 'failed') {
@@ -1103,9 +1040,7 @@
                     setTimeout(() => {
                         hideTypingIndicator();
                         addBotMessage('Em xin lỗi vì chưa hỗ trợ được Quý khách tốt. Quý khách có thể liên hệ Chuyên viên tư vấn để được hỗ trợ trực tiếp nhé.');
-                        setTimeout(() => {
-                            showContactInfo();
-                        }, 500);
+                        setTimeout(() => { showContactInfo(); }, 500);
                         currentState = 'welcome';
                     }, 800);
                 } else if (value === 'menu') {
@@ -1114,9 +1049,7 @@
                     setTimeout(() => {
                         hideTypingIndicator();
                         addBotMessage('Dạ vâng, em đang đưa Quý khách quay lại menu chính.');
-                        setTimeout(() => {
-                            showMainMenu();
-                        }, 500);
+                        setTimeout(() => { showMainMenu(); }, 500);
                         currentState = 'welcome';
                     }, 800);
                 } else if (value === 'end') {
@@ -1128,10 +1061,7 @@
                         setTimeout(() => {
                             addBotMessage('Nếu cần hỗ trợ, Quý khách có thể bắt đầu lại cuộc trò chuyện bất cứ lúc nào. 😊');
                             setTimeout(() => {
-                                const restartOption = [
-                                    { text: '🔄 Bắt đầu lại', value: 'restart' }
-                                ];
-                                addButtonOptions(restartOption);
+                                addButtonOptions([{ text: '🔄 Bắt đầu lại', value: 'restart' }]);
                             }, 500);
                         }, 500);
                         currentState = 'ended';
@@ -1148,9 +1078,7 @@
                 }
             } else {
                 addUserMessage(optionText[value] || value);
-                
                 showTypingIndicator();
-                
                 setTimeout(() => {
                     hideTypingIndicator();
                     handleUserChoice(value);
@@ -1158,7 +1086,6 @@
             }
         }
 
-        // Xử lý lựa chọn của người dùng
         function handleUserChoice(choice) {
             currentTopic = choice;
 
@@ -1178,12 +1105,10 @@
                 return;
             }
 
-            // Hiển thị nội dung
             if (topicData.content) {
                 addBotMessage(topicData.content);
             }
 
-            // Hiển thị hướng dẫn từng bước
             if (topicData.steps) {
                 if (choice === 'kichHoatThe') {
                     addBotMessage('Dạ, để kích hoạt thẻ VietinBank, Quý khách có thể thực hiện rất đơn giản theo hướng dẫn sau:');
@@ -1193,12 +1118,10 @@
                 showStepByStepGuide(topicData);
             }
 
-            // Hiển thị Google Slides nếu có
             if (topicData.slidesId) {
                 showGoogleSlides(topicData.slidesId, topicData.totalSlides, topicData.title);
             }
 
-            // Hiển thị link video nếu có
             if (topicData.videoLink) {
                 showVideoLink(topicData.videoLink);
             }
@@ -1206,19 +1129,15 @@
             askForFeedback();
         }
 
-        // Hiển thị hướng dẫn từng bước
         function showStepByStepGuide(topicData) {
             let stepsHTML = '<div style="margin-top: 10px;">';
-            
             topicData.steps.forEach(step => {
                 stepsHTML += `<div class="step-guide"><strong>${step.step}:</strong> ${step.content}</div>`;
             });
-            
             stepsHTML += '</div>';
             addBotMessage(stepsHTML);
         }
 
-        // Hiển thị Google Slides
         function showGoogleSlides(slidesId, totalSlides, title) {
             const messagesDiv = document.getElementById('chatMessages');
             const slidesDiv = document.createElement('div');
@@ -1229,9 +1148,7 @@
             let slidesHTML = `
                 <div class="message-content">
                     <div class="slides-viewer">
-                        <button class="fullscreen-icon-btn" onclick="openFullscreen('${slidesId}', ${totalSlides}, '${title}')" title="Xem toàn màn hình">
-                            ⛶
-                        </button>
+                        <button class="fullscreen-icon-btn" onclick="openFullscreen('${slidesId}', ${totalSlides}, '${title}')" title="Xem toàn màn hình">⛶</button>
                         <div class="swiper ${uniqueId}">
                             <div class="swiper-wrapper">`;
             
@@ -1239,13 +1156,7 @@
                 slidesHTML += `
                     <div class="swiper-slide">
                         <div class="slides-container">
-                            <iframe 
-                                src="https://docs.google.com/presentation/d/${slidesId}/embed?start=false&loop=false&delayms=3000&slide=id.p${i > 1 ? i : ''}&rm=minimal"
-                                frameborder="0"
-                                allowfullscreen="true"
-                                mozallowfullscreen="true"
-                                webkitallowfullscreen="true">
-                            </iframe>
+                            <iframe src="https://docs.google.com/presentation/d/${slidesId}/embed?start=false&loop=false&delayms=3000&slide=id.p${i > 1 ? i : ''}&rm=minimal" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
                         </div>
                     </div>`;
             }
@@ -1256,18 +1167,14 @@
                             <div class="swiper-button-prev"></div>
                             <div class="swiper-pagination"></div>
                         </div>
-                        <div class="slide-counter">
-                            <span class="current-slide">1</span> / ${totalSlides}
-                        </div>
+                        <div class="slide-counter"><span class="current-slide">1</span> / ${totalSlides}</div>
                     </div>
-                </div>
-            `;
+                </div>`;
             
             slidesDiv.innerHTML = slidesHTML;
             messagesDiv.appendChild(slidesDiv);
             scrollToBottom();
             
-            // Khởi tạo Swiper
             setTimeout(() => {
                 currentSwiper = new Swiper('.' + uniqueId, {
                     navigation: {
@@ -1290,7 +1197,6 @@
             }, 100);
         }
 
-        // Mở fullscreen
         function openFullscreen(slidesId, totalSlides, title) {
             const modal = document.getElementById('fullscreenModal');
             const container = document.getElementById('fullscreenSlidesContainer');
@@ -1308,14 +1214,7 @@
                 slidesHTML += `
                     <div class="swiper-slide">
                         <div style="width: 100%; height: 100%;">
-                            <iframe 
-                                src="https://docs.google.com/presentation/d/${slidesId}/embed?start=false&loop=false&delayms=3000&slide=id.p${i > 1 ? i : ''}&rm=minimal"
-                                frameborder="0"
-                                style="width: 100%; height: 100%; pointer-events: auto;"
-                                allowfullscreen="true"
-                                mozallowfullscreen="true"
-                                webkitallowfullscreen="true">
-                            </iframe>
+                            <iframe src="https://docs.google.com/presentation/d/${slidesId}/embed?start=false&loop=false&delayms=3000&slide=id.p${i > 1 ? i : ''}&rm=minimal" frameborder="0" style="width: 100%; height: 100%; pointer-events: auto;" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
                         </div>
                     </div>`;
             }
@@ -1325,8 +1224,7 @@
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-pagination"></div>
-                </div>
-            `;
+                </div>`;
             
             container.innerHTML = slidesHTML;
             modal.classList.add('show');
@@ -1350,26 +1248,22 @@
             }, 100);
         }
 
-        // Đóng fullscreen
         function closeFullscreen() {
             document.getElementById('fullscreenModal').classList.remove('show');
         }
 
-        // Đóng fullscreen khi click bên ngoài
         document.getElementById('fullscreenModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeFullscreen();
             }
         });
 
-        // Đóng fullscreen khi nhấn ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeFullscreen();
             }
         });
 
-        // Hiển thị link video
         function showVideoLink(videoLink) {
             if (videoLink) {
                 const videoMsg = `<a href="${videoLink}" target="_blank" class="video-link">Xem video hướng dẫn</a>`;
@@ -1377,21 +1271,22 @@
             }
         }
 
-        // Hiển thị link chỉ đường (mở app bản đồ ATM)
         function showDirectionsLink() {
             const link = 'https://eokhanhthien.github.io/atm-location/';
-            const msg = `<a href="${link}" target="_blank" class="video-link" style="background:#007bff">Mở bản đồ chỉ đường tới ATM</a>`;
+            const msg = `<a href="${link}" target="_blank" class="video-link map-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
+                </svg>
+                Mở bản đồ
+            </a>`;
             addBotMessage(msg);
-            // Ask for feedback after showing the directions
             askForFeedback();
         }
 
-        // Hỏi phản hồi
         function askForFeedback() {
             currentState = 'waiting_feedback';
             setTimeout(() => {
                 addBotMessage('Quý khách đã thực hiện thành công chưa ạ? Quý khách có cần em hỗ trợ thêm gì không?');
-                
                 const feedbackOptions = [
                     { text: '✅ Đã thực hiện thành công', value: 'success' },
                     { text: '❌ Chưa thực hiện được', value: 'failed' },
@@ -1402,16 +1297,13 @@
             }, 500);
         }
 
-        // Hiển thị thông tin liên hệ
         function showContactInfo() {
             const contactMsg = `Để được hỗ trợ trực tiếp và nhanh chóng hơn, Quý khách vui lòng liên hệ với Chuyên viên Dịch vụ Khách hàng của chúng tôi:<br><br>
             <strong>Tên:</strong> Trần Văn XXXXX<br>
             <strong>Số điện thoại:</strong> 09XXXXXXXX<br>
             <strong>Đơn vị:</strong> Phòng Dịch vụ Khách hàng, VietinBank Chi nhánh Cà Mau<br><br>
             <em>⚠️ Lưu ý: Quý khách vui lòng không chia sẻ mật khẩu hay mã OTP cho bất kỳ ai, kể cả nhân viên ngân hàng.</em>`;
-            
             addBotMessage(contactMsg);
-            
             setTimeout(() => {
                 const options = [
                     { text: '🔙 Quay lại menu chính', value: 'menu' },
@@ -1421,30 +1313,25 @@
             }, 500);
         }
 
-        // Xóa chat
         function clearChat() {
             const messagesDiv = document.getElementById('chatMessages');
             messagesDiv.innerHTML = '<div class="typing-indicator" id="typingIndicator"><span></span><span></span><span></span></div>';
         }
 
-        // Hiển thị typing indicator
         function showTypingIndicator() {
             document.getElementById('typingIndicator').classList.add('show');
             scrollToBottom();
         }
 
-        // Ẩn typing indicator
         function hideTypingIndicator() {
             document.getElementById('typingIndicator').classList.remove('show');
         }
 
-        // Cuộn xuống cuối
         function scrollToBottom() {
             const messagesDiv = document.getElementById('chatMessages');
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        // Xử lý gửi tin nhắn
         document.getElementById('sendButton').addEventListener('click', sendMessage);
         document.getElementById('chatInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -1460,30 +1347,21 @@
                 addUserMessage(message);
                 input.value = '';
                 hideSuggestions();
-                
                 showTypingIndicator();
                 setTimeout(() => {
                     hideTypingIndicator();
-                    
-                    // Tìm kiếm trong FAQ
                     const faqAnswer = findFAQAnswer(message);
-                    
                     if (faqAnswer) {
                         addBotMessage(faqAnswer);
-                        setTimeout(() => {
-                            showMainMenu();
-                        }, 500);
+                        setTimeout(() => { showMainMenu(); }, 500);
                     } else {
                         addBotMessage('Em xin lỗi, em chưa hiểu rõ câu hỏi của Quý khách. Quý khách vui lòng chọn dịch vụ phù hợp từ menu bên dưới hoặc gõ từ khóa để tìm kiếm nhé! 😊');
-                        setTimeout(() => {
-                            showMainMenu();
-                        }, 500);
+                        setTimeout(() => { showMainMenu(); }, 500);
                     }
                 }, 1000);
             }
         }
 
-        // Khởi động chatbot khi trang load
         window.onload = function() {
             initChatbot();
         };
